@@ -7,9 +7,13 @@ Drop a folder of photos and arrange them in 3D space. Sign in to save spaces and
 
 
 React 19 + Vite + TypeScript
+
 Three.js (raw — custom render pipeline with SMAA + OutlinePass)
+
 Zustand for state
+
 Supabase (Auth + Postgres) for accounts and saved spaces — photos stay on your device
+
 Vercel for hosting
 
 
@@ -17,10 +21,15 @@ Vercel for hosting
 
 
 Clone the repo.
+
 Install: npm install
+
 Create a Supabase project at supabase.com.
+
 In the Supabase SQL editor, run supabase/migrations/0001_init.sql.
+
 Copy .env.example to .env and fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from Supabase → Settings → API.
+
 npm run dev → http://localhost:5173
 
 
@@ -28,10 +37,15 @@ npm run dev → http://localhost:5173
 
 
 Push the repo to GitHub.
+
 Import the repo at vercel.com/new.
+
 Set environment variables: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.
+
 Deploy. Vercel auto-detects Vite and serves the static build.
+
 In Supabase → Authentication → URL Configuration, add your Vercel deployment URL to "Site URL" and "Redirect URLs" so magic links work in production.
+
 
 **How saved spaces work**
 
