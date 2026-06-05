@@ -71,7 +71,7 @@ export function LandingScreen() {
             letterSpacing: '-0.02em',
           }}
         >
-          PinViz
+          PhotoMedia
         </h1>
         <p
           style={{
