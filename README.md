@@ -1,53 +1,35 @@
-**PhotoMedia**
+# PhotoMedia
 
+Drop a folder of photos and watch them float around you in a 3D AR space — the live webcam is the backdrop, and you arrange the photos with hand gestures (or mouse). Runs **entirely in your browser**: no sign-in, no uploads, no server. Your photos never leave your device.
 
-Drop a folder of photos and arrange them in 3D space. Sign in to save spaces and revisit them later.
+## Stack
 
-**Stack**
+- React 19 + Vite + TypeScript
+- Three.js (raw — custom render pipeline with SMAA + OutlinePass over a transparent canvas)
+- Zustand for state
+- `@mediapipe/tasks-vision` (HandLandmarker) for webcam hand tracking — browser-side WASM + WebGL
+- Vercel for static hosting
 
+No backend. No database. No accounts.
 
-React 19 + Vite + TypeScript
+## Local development
 
-Three.js (raw — custom render pipeline with SMAA + OutlinePass)
+1. Clone the repo.
+2. Install: `npm install`
+3. `npm run dev` → http://localhost:5173
 
-Zustand for state
+That's it — there's nothing to configure.
 
-Supabase (Auth + Postgres) for accounts and saved spaces — photos stay on your device
+## Deploy to Vercel
 
-Vercel for hosting
+1. Push to GitHub.
+2. Import the repo at vercel.com/new.
+3. Deploy. Vercel auto-detects Vite and serves the static build. No environment variables needed.
 
+Pushing to `main` auto-rebuilds the production deploy.
 
-**Local development**
+## How it works
 
+Drop JPG/PNG/WebP files → they're decoded locally into WebGL textures and scattered in 3D. Turn on the camera (on by default) and the webcam fills the background while the photos float in front. Pinch-grab a photo to pull it close, resize it, and place it anywhere; swipe to spin the whole cloud; bring two hands together/apart to zoom. Everything is in-memory for the session — reload and you start fresh.
 
-Clone the repo.
-
-Install: npm install
-
-Create a Supabase project at supabase.com.
-
-In the Supabase SQL editor, run supabase/migrations/0001_init.sql.
-
-Copy .env.example to .env and fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from Supabase → Settings → API.
-
-npm run dev → http://localhost:5173
-
-
-**Deploy to Vercel**
-
-
-Push the repo to GitHub.
-
-Import the repo at vercel.com/new.
-
-Set environment variables: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.
-
-Deploy. Vercel auto-detects Vite and serves the static build.
-
-In Supabase → Authentication → URL Configuration, add your Vercel deployment URL to "Site URL" and "Redirect URLs" so magic links work in production.
-
-
-**How saved spaces work**
-
-
-When you drop photos, PinViz hashes the first 64 KB of each file. Saving a space stores those hashes plus your layout in Supabase. Photos themselves never leave your device. To revisit a space, drop the same folder — files are matched by hash, so renamed files still work.
+Run `npm test` for the unit tests (layout + gesture recognizer).
