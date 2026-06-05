@@ -79,7 +79,7 @@ export function AuthForm() {
             letterSpacing: '-0.02em',
           }}
         >
-          PinViz
+          PhotoMedia
         </h1>
         <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--text-secondary)' }}>
           {mode === 'sign-in' && 'Sign in to your spaces.'}
